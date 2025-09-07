@@ -1,9 +1,9 @@
-mod error;
-mod test_rom;
+pub mod error;
+pub mod test_rom;
 
 use std::{fs, io};
 
-pub struct Cpu {
+pub struct Emulator {
     program_counter: u16,
     A: u8,
     X: u8,
@@ -13,7 +13,7 @@ pub struct Cpu {
     header: Vec<u8>,
 }
 // Constructors
-impl Cpu {
+impl Emulator {
     pub fn new() -> Self {
         Self {
             program_counter: 0,
@@ -28,7 +28,7 @@ impl Cpu {
 }
 
 // accessors
-impl Cpu {
+impl Emulator {
     pub fn read(&self, address: u16) -> Option<u8> {
         let address = address as usize;
         if address < 0x800 {
@@ -43,8 +43,8 @@ impl Cpu {
 }
 
 // mutators
-impl Cpu {
-    pub fn load_rom(&mut self, rom: Vec<u8>) {
+impl Emulator {
+    pub fn load_rom(&mut self, rom: &[u8]) {
         if let Some(header) = rom.get(..0x10) {
             self.header.copy_from_slice(header)
         };
@@ -60,7 +60,7 @@ impl Cpu {
     }
 
     pub fn reset(&mut self, file_path: &str) -> Result<(), io::Error> {
-        self.load_rom(fs::read(file_path)?);
+        self.load_rom(&fs::read(file_path)?);
 
         self.increment_program_counter();
 
