@@ -8,7 +8,15 @@ pub struct Cpu {
 }
 impl Cpu {
     pub fn read(&self, address: u16) -> Option<u8> {
-        self.ram.get(address as usize).copied()
+        let address = address as usize;
+        if address < 0x800 {
+            self.ram.get(address)
+        } else if address >= 0x8000 {
+            self.rom.get(address - self.rom.len())
+        } else {
+            None
+        }
+        .copied()
     }
 }
 
