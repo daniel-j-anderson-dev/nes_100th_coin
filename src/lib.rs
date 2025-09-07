@@ -1,4 +1,4 @@
-mod test_roms;
+mod test_rom;
 
 pub struct Cpu {
     program_counter: u16,
