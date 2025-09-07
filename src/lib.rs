@@ -6,6 +6,11 @@ pub struct Cpu {
     ram: [u8; 0x800],
     rom: Vec<u8>,
 }
+impl Cpu {
+    pub fn read(&self, address: u16) -> Option<u8> {
+        self.ram.get(address as usize).copied()
+    }
+}
 
 pub enum Instruction {
     LDA = 0xA9,
