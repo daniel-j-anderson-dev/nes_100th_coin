@@ -11,7 +11,19 @@ pub struct Emulator {
     ram: [u8; 0x800],
     rom: Vec<u8>,
     header: Vec<u8>,
+    cpu_halted: bool,
 }
+impl Emulator {
+    pub fn run(&mut self) {
+        while !self.cpu_halted {
+            self.emulate_cpu();
+        }
+
+    }
+    pub fn emulate_cpu(&mut self) {
+    }
+}
+
 // Constructors
 impl Emulator {
     pub fn new() -> Self {
@@ -23,6 +35,7 @@ impl Emulator {
             ram: [0; _],
             rom: Vec::new(),
             header: Vec::new(),
+            cpu_halted: false,
         }
     }
 }
