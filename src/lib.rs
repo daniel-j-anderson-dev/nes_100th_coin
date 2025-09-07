@@ -3,4 +3,13 @@ pub struct Cpu {
     A: u8,
     X: u8,
     Y: u8,
+    ram: [u8; 0x800],
+    rom: Vec<u8>,
+}
+
+pub enum Instruction {
+    LDA = 0xA9,
+    LDX = 0xA2,
+    LDY = 0xA0,
+    HLT = 0x02,
 }
