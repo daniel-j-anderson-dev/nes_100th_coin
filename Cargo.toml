@@ -1,0 +1,6 @@
+[package]
+name = "nes_100th_coin"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
